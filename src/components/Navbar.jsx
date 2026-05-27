@@ -62,7 +62,7 @@ export default function Navbar({ onGetStarted }) {
             <a
               key={link.key}
               href={link.href}
-              className="text-sm text-gray-400 hover:text-[var(--text-primary)] transition-colors relative group"
+              className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors relative group"
             >
               {t(link.key)}
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300" />
@@ -74,7 +74,7 @@ export default function Navbar({ onGetStarted }) {
         <div className="hidden md:flex items-center gap-4">
           <button 
             onClick={toggleTheme}
-            className="w-9 h-9 rounded-full glass flex items-center justify-center text-gray-400 hover:text-[var(--text-primary)] transition-all"
+            className="w-9 h-9 rounded-full glass flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all"
             aria-label="Toggle Theme"
           >
             {theme === 'dark' ? '☀️' : '🌙'}
@@ -84,8 +84,8 @@ export default function Navbar({ onGetStarted }) {
             onChange={(e) => i18n.changeLanguage(e.target.value)}
             className="bg-transparent text-sm text-[var(--text-primary)] outline-none cursor-pointer p-1 rounded glass-strong"
           >
-            <option value="en" className="bg-[#0a0a0f] text-white">EN</option>
-            <option value="hi" className="bg-[#0a0a0f] text-white">HI</option>
+            <option value="en" className="bg-[var(--dark-bg)] text-[var(--text-primary)]">EN</option>
+            <option value="hi" className="bg-[var(--dark-bg)] text-[var(--text-primary)]">HI</option>
           </select>
           <button
             onClick={onGetStarted}
@@ -102,7 +102,7 @@ export default function Navbar({ onGetStarted }) {
           aria-label="Toggle menu"
         >
           <motion.span
-            className="w-6 h-0.5 bg-white block"
+            className="w-6 h-0.5 bg-[var(--text-primary)] block"
             animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
           />
           <motion.span
@@ -120,7 +120,7 @@ export default function Navbar({ onGetStarted }) {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="md:hidden glass-strong border-t border-white/5"
+            className="md:hidden glass-strong border-t border-[var(--glass-border)]"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -139,15 +139,15 @@ export default function Navbar({ onGetStarted }) {
                   onChange={(e) => i18n.changeLanguage(e.target.value)}
                   className="bg-transparent text-[var(--text-primary)] outline-none cursor-pointer p-2 rounded glass-strong"
                 >
-                  <option value="en" className="bg-[#0a0a0f] text-white">English</option>
-                  <option value="hi" className="bg-[#0a0a0f] text-white">हिंदी</option>
+                  <option value="en" className="bg-[var(--dark-bg)] text-[var(--text-primary)]">English</option>
+                  <option value="hi" className="bg-[var(--dark-bg)] text-[var(--text-primary)]">हिंदी</option>
                 </select>
               </div>
               {navLinks.map((link) => (
                 <a
                   key={link.key}
                   href={link.href}
-                  className="text-gray-300 hover:text-[var(--text-primary)] transition-colors text-lg"
+                  className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-lg"
                   onClick={() => setMobileOpen(false)}
                 >
                   {t(link.key)}

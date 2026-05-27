@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MouseGlow from './components/ui/MouseGlow';
+import Scene3D from './components/3d/Scene3D';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import FeaturesSection from './components/FeaturesSection';
@@ -40,7 +41,7 @@ function LoadingScreen({ onComplete }) {
         </motion.div>
         
         <motion.p
-          className="text-sm text-gray-500 mt-3 font-medium tracking-wide"
+          className="text-sm text-[var(--text-secondary)] mt-3 font-medium tracking-wide"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
@@ -48,7 +49,7 @@ function LoadingScreen({ onComplete }) {
           {t('ai_powered_health')}
         </motion.p>
         <motion.div
-          className="mt-8 w-48 h-1 bg-white/5 rounded-full mx-auto overflow-hidden"
+          className="mt-8 w-48 h-1 bg-[var(--glass-bg)] rounded-full mx-auto overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
@@ -83,6 +84,7 @@ export default function App() {
           transition={{ duration: 0.5 }}
         >
           <MouseGlow />
+          <Scene3D className="!fixed pointer-events-none opacity-60" />
           <Navbar onGetStarted={() => setShowOnboarding(true)} />
           
           <main>

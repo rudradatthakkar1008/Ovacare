@@ -17,7 +17,7 @@ export function AnimatedHeading({ children, className = '', delay = 0 }) {
 export function AnimatedSubtext({ children, className = '', delay = 0.15 }) {
   return (
     <motion.p
-      className={`text-gray-400 ${className}`}
+      className={`text-[var(--text-secondary)] ${className}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}

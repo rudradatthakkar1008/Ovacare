@@ -1,26 +1,35 @@
 import { motion } from 'framer-motion';
 import { AnimatedHeading, AnimatedSubtext } from './ui/AnimatedText';
-
-const tasks = [
-  { name: 'Morning Yoga', time: '7:00 AM', done: true, icon: '🧘' },
-  { name: 'Take Supplements', time: '8:30 AM', done: true, icon: '💊' },
-  { name: 'Log Breakfast', time: '9:00 AM', done: true, icon: '🥗' },
-  { name: 'Drink 2L Water', time: 'All Day', done: false, icon: '💧', progress: 60 },
-  { name: 'Evening Walk', time: '6:00 PM', done: false, icon: '🚶‍♀️' },
-  { name: 'Log Mood', time: '9:00 PM', done: false, icon: '😊' },
-];
-
-const moodData = [
-  { day: 'Mon', mood: 4, emoji: '😊' },
-  { day: 'Tue', mood: 3, emoji: '😐' },
-  { day: 'Wed', mood: 5, emoji: '🥰' },
-  { day: 'Thu', mood: 2, emoji: '😟' },
-  { day: 'Fri', mood: 4, emoji: '😊' },
-  { day: 'Sat', mood: 5, emoji: '🥰' },
-  { day: 'Sun', mood: 4, emoji: '😊' },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function DashboardSection() {
+  const { t } = useTranslation();
+
+  const tasks = [
+    { nameKey: 'dash_task_yoga', timeKey: 'dash_task_yoga_time', done: true, icon: '🧘' },
+    { nameKey: 'dash_task_suppl', timeKey: 'dash_task_suppl_time', done: true, icon: '💊' },
+    { nameKey: 'dash_task_breakfast', timeKey: 'dash_task_breakfast_time', done: true, icon: '🥗' },
+    { nameKey: 'dash_task_water', timeKey: 'dash_task_water_time', done: false, icon: '💧', progress: 60 },
+    { nameKey: 'dash_task_walk', timeKey: 'dash_task_walk_time', done: false, icon: '🚶‍♀️' },
+    { nameKey: 'dash_task_mood', timeKey: 'dash_task_mood_time', done: false, icon: '😊' },
+  ];
+
+  const moodData = [
+    { dayKey: 'day_mon', mood: 4, emoji: '😊' },
+    { dayKey: 'day_tue', mood: 3, emoji: '😐' },
+    { dayKey: 'day_wed', mood: 5, emoji: '🥰' },
+    { dayKey: 'day_thu', mood: 2, emoji: '😟' },
+    { dayKey: 'day_fri', mood: 4, emoji: '😊' },
+    { dayKey: 'day_sat', mood: 5, emoji: '🥰' },
+    { dayKey: 'day_sun', mood: 4, emoji: '😊' },
+  ];
+
+  const recs = [
+    { textKey: 'dash_rec1', tagKey: 'dash_rec1_tag', color: 'text-green-400 bg-green-500/10' },
+    { textKey: 'dash_rec2', tagKey: 'dash_rec2_tag', color: 'text-purple-400 bg-purple-500/10' },
+    { textKey: 'dash_rec3', tagKey: 'dash_rec3_tag', color: 'text-pink-400 bg-pink-500/10' },
+  ];
+
   return (
     <section id="dashboard" className="section-padding relative overflow-hidden">
       <div className="absolute top-0 left-1/3 w-[400px] h-[400px] bg-purple-600/5 rounded-full blur-[120px]" />
@@ -34,52 +43,50 @@ export default function DashboardSection() {
             viewport={{ once: true }}
           >
             <span className="text-sm">📊</span>
-            <span className="text-sm text-purple-300">Investor-Ready Dashboard</span>
+            <span className="text-sm text-purple-300">{t('dash_badge')}</span>
           </motion.div>
           <AnimatedHeading className="text-4xl sm:text-5xl font-extrabold mb-4">
-            Your Wellness Command Center
+            {t('dash_heading')}
           </AnimatedHeading>
           <AnimatedSubtext className="text-lg max-w-xl mx-auto">
-            A comprehensive dashboard that puts your hormonal health data at your fingertips.
+            {t('dash_subheading')}
           </AnimatedSubtext>
         </div>
 
-        {/* Dashboard Mockup */}
         <motion.div
-          className="glass-card rounded-3xl p-6 sm:p-8 neon-glow"
+          className="glass-card rounded-3xl p-4 sm:p-6 md:p-8 neon-glow"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {/* Dashboard Header */}
-          <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/5">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-[var(--glass-border)] gap-3">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
                 <span className="text-sm font-bold text-white">P</span>
               </div>
               <div>
-                <div className="text-sm font-semibold text-white">Good Evening, Priya 👋</div>
-                <div className="text-xs text-gray-500">Day 22 of your cycle • Luteal Phase</div>
+                <div className="text-sm font-semibold text-[var(--text-primary)]">{t('dash_greeting')}</div>
+                <div className="text-xs text-[var(--text-secondary)]">{t('dash_cycle_phase')}</div>
               </div>
             </div>
             <div className="hidden sm:flex items-center gap-2">
-              <span className="glass px-3 py-1.5 rounded-lg text-xs text-gray-400">🔔 3 reminders</span>
-              <span className="glass px-3 py-1.5 rounded-lg text-xs text-purple-400">⚡ Level 3</span>
+              <span className="glass px-3 py-1.5 rounded-lg text-xs text-[var(--text-secondary)]">{t('dash_reminders_count')}</span>
+              <span className="glass px-3 py-1.5 rounded-lg text-xs text-purple-400">{t('dash_level_badge')}</span>
             </div>
           </div>
 
           {/* Top Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {/* Hormonal Balance Score */}
             <motion.div
-              className="glass rounded-2xl p-5 text-center col-span-1"
+              className="glass rounded-2xl p-4 sm:p-5 text-center col-span-1"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
             >
-              <div className="relative w-20 h-20 mx-auto mb-3">
-                <svg className="w-20 h-20 -rotate-90" viewBox="0 0 80 80">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3">
+                <svg className="w-16 h-16 sm:w-20 sm:h-20 -rotate-90" viewBox="0 0 80 80">
                   <circle cx="40" cy="40" r="35" stroke="rgba(255,255,255,0.05)" strokeWidth="6" fill="none" />
                   <motion.circle
                     cx="40" cy="40" r="35"
@@ -104,32 +111,29 @@ export default function DashboardSection() {
                   <span className="text-xl font-extrabold gradient-text">78</span>
                 </div>
               </div>
-              <div className="text-xs font-semibold text-white">Balance Score</div>
-              <div className="text-[10px] text-green-400 mt-1">↑ 5% this week</div>
+              <div className="text-xs font-semibold text-[var(--text-primary)]">{t('dash_balance_score')}</div>
+              <div className="text-[10px] text-green-400 mt-1">{t('dash_balance_up')}</div>
             </motion.div>
 
-            {/* Upcoming Period */}
-            <div className="glass rounded-2xl p-5 text-center">
+            <div className="glass rounded-2xl p-4 sm:p-5 text-center">
               <div className="text-3xl mb-2">📅</div>
               <div className="text-2xl font-extrabold text-pink-400">9</div>
-              <div className="text-xs text-gray-400">Days to Period</div>
-              <div className="text-[10px] text-gray-500 mt-1">June 5, 2026</div>
+              <div className="text-xs text-[var(--text-secondary)]">{t('dash_days_period')}</div>
+              <div className="text-[10px] text-[var(--text-secondary)] mt-1">{t('dash_period_date')}</div>
             </div>
 
-            {/* Wellness Streak */}
-            <div className="glass rounded-2xl p-5 text-center">
+            <div className="glass rounded-2xl p-4 sm:p-5 text-center">
               <div className="text-3xl mb-2">🔥</div>
               <div className="text-2xl font-extrabold text-orange-400">12</div>
-              <div className="text-xs text-gray-400">Day Streak</div>
-              <div className="text-[10px] text-green-400 mt-1">Personal best!</div>
+              <div className="text-xs text-[var(--text-secondary)]">{t('dash_streak')}</div>
+              <div className="text-[10px] text-green-400 mt-1">{t('dash_streak_best')}</div>
             </div>
 
-            {/* Reward Coins */}
-            <div className="glass rounded-2xl p-5 text-center">
+            <div className="glass rounded-2xl p-4 sm:p-5 text-center">
               <div className="text-3xl mb-2">🪙</div>
               <div className="text-2xl font-extrabold text-yellow-400">680</div>
-              <div className="text-xs text-gray-400">Reward Coins</div>
-              <div className="text-[10px] text-purple-400 mt-1">+45 today</div>
+              <div className="text-xs text-[var(--text-secondary)]">{t('dash_coins')}</div>
+              <div className="text-[10px] text-purple-400 mt-1">{t('dash_coins_today')}</div>
             </div>
           </div>
 
@@ -137,25 +141,21 @@ export default function DashboardSection() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* AI Recommendations */}
             <div className="glass rounded-2xl p-5 md:col-span-2">
-              <h4 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-                <span className="text-purple-400">🤖</span> AI Recommendations
+              <h4 className="text-sm font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+                <span className="text-purple-400">🤖</span> {t('dash_ai_recs')}
               </h4>
               <div className="space-y-3">
-                {[
-                  { text: 'Increase magnesium-rich foods this week for better sleep', tag: 'Diet', color: 'text-green-400 bg-green-500/10' },
-                  { text: 'Your cortisol is likely elevated — try 10 min meditation', tag: 'Wellness', color: 'text-purple-400 bg-purple-500/10' },
-                  { text: 'Schedule your upcoming gynecologist follow-up', tag: 'Health', color: 'text-pink-400 bg-pink-500/10' },
-                ].map((rec, i) => (
+                {recs.map((rec, i) => (
                   <motion.div
-                    key={rec.text}
+                    key={rec.textKey}
                     className="glass rounded-xl p-3.5 flex items-start gap-3 hover:bg-purple-500/5 transition-colors"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
                   >
-                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-semibold ${rec.color} mt-0.5`}>{rec.tag}</span>
-                    <span className="text-xs text-gray-300 leading-relaxed">{rec.text}</span>
+                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-semibold ${rec.color} mt-0.5 whitespace-nowrap`}>{t(rec.tagKey)}</span>
+                    <span className="text-xs text-[var(--text-secondary)] leading-relaxed">{t(rec.textKey)}</span>
                   </motion.div>
                 ))}
               </div>
@@ -163,8 +163,8 @@ export default function DashboardSection() {
 
             {/* Water Intake */}
             <div className="glass rounded-2xl p-5">
-              <h4 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-                <span>💧</span> Water Intake
+              <h4 className="text-sm font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+                <span>💧</span> {t('dash_water')}
               </h4>
               <div className="flex justify-center mb-3">
                 <div className="relative w-16 h-24 rounded-xl border-2 border-blue-400/30 overflow-hidden">
@@ -181,19 +181,19 @@ export default function DashboardSection() {
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-xs text-gray-400">Goal: 2.5L</div>
-                <div className="text-[10px] text-blue-400 mt-1">60% complete</div>
+                <div className="text-xs text-[var(--text-secondary)]">{t('dash_water_goal')}</div>
+                <div className="text-[10px] text-blue-400 mt-1">{t('dash_water_pct')}</div>
               </div>
             </div>
 
             {/* Mood Tracker */}
             <div className="glass rounded-2xl p-5 md:col-span-2">
-              <h4 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-                <span>😊</span> Mood This Week
+              <h4 className="text-sm font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+                <span>😊</span> {t('dash_mood')}
               </h4>
               <div className="flex items-end justify-between gap-2 h-24">
                 {moodData.map((d, i) => (
-                  <div key={d.day} className="flex-1 flex flex-col items-center gap-1">
+                  <div key={d.dayKey} className="flex-1 flex flex-col items-center gap-1">
                     <span className="text-sm">{d.emoji}</span>
                     <motion.div
                       className="w-full rounded-t-lg bg-gradient-to-t from-purple-500/40 to-pink-500/20"
@@ -202,7 +202,7 @@ export default function DashboardSection() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: i * 0.05 }}
                     />
-                    <span className="text-[10px] text-gray-500">{d.day}</span>
+                    <span className="text-[10px] text-[var(--text-secondary)]">{t(d.dayKey)}</span>
                   </div>
                 ))}
               </div>
@@ -210,17 +210,17 @@ export default function DashboardSection() {
 
             {/* Upcoming Consultation */}
             <div className="glass rounded-2xl p-5">
-              <h4 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-                <span>👩‍⚕️</span> Next Consultation
+              <h4 className="text-sm font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+                <span>👩‍⚕️</span> {t('dash_consult')}
               </h4>
               <div className="text-center">
                 <div className="w-14 h-14 rounded-full bg-gradient-to-br from-teal-500/20 to-cyan-500/20 border border-teal-500/20 flex items-center justify-center mx-auto mb-3 text-2xl">
                   👩‍⚕️
                 </div>
-                <div className="text-sm font-medium text-white">Dr. Meera Sharma</div>
-                <div className="text-xs text-gray-500">Gynecologist</div>
+                <div className="text-sm font-medium text-[var(--text-primary)]">{t('dash_doctor_name')}</div>
+                <div className="text-xs text-[var(--text-secondary)]">{t('dash_doctor_spec')}</div>
                 <div className="mt-2 glass px-3 py-1.5 rounded-lg text-xs text-purple-300 inline-block">
-                  June 2, 2:00 PM
+                  {t('dash_doctor_date')}
                 </div>
               </div>
             </div>
@@ -228,14 +228,14 @@ export default function DashboardSection() {
 
           {/* Daily Tasks */}
           <div className="mt-6 glass rounded-2xl p-5">
-            <h4 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-              <span>✅</span> Daily Wellness Tasks
-              <span className="ml-auto text-xs text-gray-500">3/6 done</span>
+            <h4 className="text-sm font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+              <span>✅</span> {t('dash_tasks')}
+              <span className="ml-auto text-xs text-[var(--text-secondary)]">{t('dash_tasks_done')}</span>
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               {tasks.map((task, i) => (
                 <motion.div
-                  key={task.name}
+                  key={task.nameKey}
                   className={`flex items-center gap-3 glass rounded-xl px-3.5 py-3 transition-all ${
                     task.done ? 'opacity-60' : 'hover:bg-purple-500/5'
                   }`}
@@ -246,13 +246,13 @@ export default function DashboardSection() {
                 >
                   <span className="text-lg">{task.icon}</span>
                   <div className="flex-1 min-w-0">
-                    <div className={`text-xs font-medium ${task.done ? 'line-through text-gray-500' : 'text-white'}`}>
-                      {task.name}
+                    <div className={`text-xs font-medium ${task.done ? 'line-through text-[var(--text-secondary)]' : 'text-[var(--text-primary)]'}`}>
+                      {t(task.nameKey)}
                     </div>
-                    <div className="text-[10px] text-gray-600">{task.time}</div>
+                    <div className="text-[10px] text-[var(--text-secondary)]">{t(task.timeKey)}</div>
                   </div>
                   <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                    task.done ? 'bg-green-500/20 border-green-500/40' : 'border-white/10'
+                    task.done ? 'bg-green-500/20 border-green-500/40' : 'border-[var(--glass-border)]'
                   }`}>
                     {task.done && <span className="text-[8px] text-green-400">✓</span>}
                   </div>

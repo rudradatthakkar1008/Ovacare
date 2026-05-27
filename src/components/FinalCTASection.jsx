@@ -1,7 +1,18 @@
 import { motion } from 'framer-motion';
 import GlowButton from './ui/GlowButton';
+import { useTranslation } from 'react-i18next';
 
 export default function FinalCTASection() {
+  const { t } = useTranslation();
+
+  const stats = [
+    { valueKey: 'cta_waitlist_val', labelKey: 'cta_waitlist_label' },
+    { valueKey: 'cta_rating_val', labelKey: 'cta_rating_label' },
+    { valueKey: 'cta_improvement_val', labelKey: 'cta_improvement_label' },
+  ];
+
+  const trustBadges = ['cta_trust_hipaa', 'cta_trust_india', 'cta_trust_doctor', 'cta_trust_secure'];
+
   return (
     <section className="section-padding relative overflow-hidden">
       {/* Ambient glows */}
@@ -24,7 +35,6 @@ export default function FinalCTASection() {
       ))}
 
       <div className="max-w-4xl mx-auto relative text-center">
-        {/* Icon */}
         <motion.div
           className="mb-8"
           initial={{ opacity: 0, scale: 0.5 }}
@@ -37,31 +47,28 @@ export default function FinalCTASection() {
           </div>
         </motion.div>
 
-        {/* Headline */}
         <motion.h2
-          className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6"
+          className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--text-primary)] leading-tight mb-6"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.15 }}
         >
-          OvaCare is helping women{' '}
-          <span className="gradient-text">reclaim control</span>{' '}
-          over their lives.
+          {t('cta_heading_1')}{' '}
+          <span className="gradient-text">{t('cta_heading_highlight')}</span>{' '}
+          {t('cta_heading_2')}
         </motion.h2>
 
-        {/* Subtext */}
         <motion.p
-          className="text-lg text-gray-400 max-w-xl mx-auto mb-10"
+          className="text-lg text-[var(--text-secondary)] max-w-xl mx-auto mb-10"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          Join thousands of Indian women who are taking charge of their hormonal health with AI-powered personalized care.
+          {t('cta_subtext')}
         </motion.p>
 
-        {/* Stats */}
         <motion.div
           className="flex flex-wrap justify-center gap-8 mb-12"
           initial="hidden"
@@ -72,26 +79,21 @@ export default function FinalCTASection() {
             visible: { transition: { staggerChildren: 0.1, delayChildren: 0.4 } }
           }}
         >
-          {[
-            { value: '50K+', label: 'Women on Waitlist' },
-            { value: '4.9★', label: 'User Rating' },
-            { value: '92%', label: 'Symptom Improvement' },
-          ].map((stat) => (
+          {stats.map((stat) => (
             <motion.div
-              key={stat.label}
+              key={stat.labelKey}
               className="text-center"
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 },
               }}
             >
-              <div className="text-3xl font-extrabold gradient-text">{stat.value}</div>
-              <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
+              <div className="text-3xl font-extrabold gradient-text">{t(stat.valueKey)}</div>
+              <div className="text-xs text-[var(--text-secondary)] mt-1">{t(stat.labelKey)}</div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* CTA Buttons */}
         <motion.div
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
           initial={{ opacity: 0, y: 20 }}
@@ -100,14 +102,13 @@ export default function FinalCTASection() {
           transition={{ duration: 0.6, delay: 0.6 }}
         >
           <GlowButton className="min-w-[200px]">
-            💌 Join Waitlist
+            {t('cta_join')}
           </GlowButton>
           <GlowButton variant="secondary" className="min-w-[200px]">
-            📱 Download App
+            {t('cta_download')}
           </GlowButton>
         </motion.div>
 
-        {/* Trust badges */}
         <motion.div
           className="mt-12 flex flex-wrap justify-center gap-4"
           initial={{ opacity: 0 }}
@@ -115,9 +116,9 @@ export default function FinalCTASection() {
           viewport={{ once: true }}
           transition={{ delay: 0.8 }}
         >
-          {['🔒 HIPAA Compliant', '🇮🇳 Made in India', '🏥 Doctor Approved', '🛡️ Data Secure'].map(badge => (
-            <span key={badge} className="glass px-4 py-2 rounded-full text-xs text-gray-400">
-              {badge}
+          {trustBadges.map(badge => (
+            <span key={badge} className="glass px-4 py-2 rounded-full text-xs text-[var(--text-secondary)]">
+              {t(badge)}
             </span>
           ))}
         </motion.div>

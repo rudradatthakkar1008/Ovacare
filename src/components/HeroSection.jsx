@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import Scene3D from './3d/Scene3D';
 import GlowButton from './ui/GlowButton';
 import { useTranslation } from 'react-i18next';
 
@@ -18,9 +17,6 @@ export default function HeroSection({ onGetStarted, onWatchDemo }) {
   ];
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* 3D Background */}
-      <Scene3D />
-      
       {/* Gradient Mesh Overlay */}
       <div className="absolute inset-0 mesh-gradient opacity-80" />
       
@@ -39,7 +35,7 @@ export default function HeroSection({ onGetStarted, onWatchDemo }) {
           transition={{ duration: 0.6 }}
         >
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-sm text-gray-300">{t('hero_badge')}</span>
+          <span className="text-sm text-[var(--text-secondary)]">{t('hero_badge')}</span>
         </motion.div>
 
         {/* Headline */}
@@ -102,7 +98,7 @@ export default function HeroSection({ onGetStarted, onWatchDemo }) {
           {featurePills.map((pill) => (
             <motion.span
               key={pill}
-              className="px-4 py-2 rounded-full glass text-sm text-gray-300 hover:text-white hover:border-purple-500/40 transition-all cursor-default animate-float"
+              className="px-4 py-2 rounded-full glass text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-purple-500/40 transition-all cursor-default animate-float"
               style={{ animationDelay: `${Math.random() * 3}s` }}
               variants={{
                 hidden: { opacity: 0, scale: 0.8, y: 20 },
@@ -137,7 +133,7 @@ export default function HeroSection({ onGetStarted, onWatchDemo }) {
               whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(168,85,247,0.2)' }}
             >
               <span className="text-2xl">{card.emoji}</span>
-              <span className="text-sm font-medium text-gray-300">{card.text}</span>
+              <span className="text-sm font-medium text-[var(--text-primary)]">{card.text}</span>
             </motion.div>
           ))}
         </motion.div>
@@ -160,7 +156,7 @@ export default function HeroSection({ onGetStarted, onWatchDemo }) {
                 </div>
               </div>
               <div className="space-y-3">
-                <div className="glass rounded-2xl p-3 text-xs text-gray-300 max-w-[80%]">
+                <div className="glass rounded-2xl p-3 text-xs text-[var(--text-primary)] max-w-[80%]">
                   {t('hero_chat_msg1')}
                 </div>
                 <div className="glass rounded-2xl p-3 text-xs text-purple-300 ml-auto max-w-[70%] bg-purple-500/10 border-purple-500/20">
@@ -170,13 +166,13 @@ export default function HeroSection({ onGetStarted, onWatchDemo }) {
                   {t('hero_chat_msg2')}
                 </div>
                 <div className="flex gap-2">
-                  <div className="glass rounded-xl px-3 py-2 text-xs text-gray-400 flex items-center gap-1">
+                  <div className="glass rounded-xl px-3 py-2 text-xs text-[var(--text-secondary)] flex items-center gap-1">
                     <span>🧘‍♀️</span> {t('hero_chat_pill1')}
                   </div>
-                  <div className="glass rounded-xl px-3 py-2 text-xs text-gray-400 flex items-center gap-1">
+                  <div className="glass rounded-xl px-3 py-2 text-xs text-[var(--text-secondary)] flex items-center gap-1">
                     <span>💊</span> {t('hero_chat_pill2')}
                   </div>
-                  <div className="glass rounded-xl px-3 py-2 text-xs text-gray-400 flex items-center gap-1">
+                  <div className="glass rounded-xl px-3 py-2 text-xs text-[var(--text-secondary)] flex items-center gap-1">
                     <span>🥗</span> {t('hero_chat_pill3')}
                   </div>
                 </div>
@@ -194,7 +190,7 @@ export default function HeroSection({ onGetStarted, onWatchDemo }) {
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+        <div className="w-6 h-10 rounded-full border-2 border-[var(--glass-border)] flex items-start justify-center p-2">
           <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />
         </div>
       </motion.div>

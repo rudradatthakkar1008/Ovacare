@@ -15,8 +15,10 @@ function Blob({ position, color, speed, distort, scale }) {
     }
   });
 
+  const segments = window.innerWidth < 768 ? 32 : 64;
+
   return (
-    <Sphere ref={meshRef} args={[1, 64, 64]} position={position} scale={scale}>
+    <Sphere ref={meshRef} args={[1, segments, segments]} position={position} scale={scale}>
       <MeshDistortMaterial
         color={color}
         attach="material"
@@ -32,13 +34,17 @@ function Blob({ position, color, speed, distort, scale }) {
 }
 
 export default function FloatingBlobs() {
-  const blobs = useMemo(() => [
-    { position: [-3, 1.5, -3], color: '#7c3aed', speed: 0.4, distort: 0.4, scale: 1.8 },
-    { position: [3, -1, -4], color: '#a855f7', speed: 0.3, distort: 0.5, scale: 1.5 },
-    { position: [0, 2, -5], color: '#f472b6', speed: 0.5, distort: 0.3, scale: 2.0 },
-    { position: [-2, -2, -6], color: '#818cf8', speed: 0.35, distort: 0.45, scale: 1.3 },
-    { position: [2.5, 1, -7], color: '#c084fc', speed: 0.45, distort: 0.35, scale: 1.6 },
-  ], []);
+  const blobs = useMemo(() => {
+    const isMobile = window.innerWidth < 768;
+    const allBlobs = [
+      { position: [-3, 1.5, -3], color: '#7c3aed', speed: 0.4, distort: 0.4, scale: 1.8 },
+      { position: [3, -1, -4], color: '#a855f7', speed: 0.3, distort: 0.5, scale: 1.5 },
+      { position: [0, 2, -5], color: '#f472b6', speed: 0.5, distort: 0.3, scale: 2.0 },
+      { position: [-2, -2, -6], color: '#818cf8', speed: 0.35, distort: 0.45, scale: 1.3 },
+      { position: [2.5, 1, -7], color: '#c084fc', speed: 0.45, distort: 0.35, scale: 1.6 },
+    ];
+    return isMobile ? allBlobs.slice(0, 3) : allBlobs;
+  }, []);
 
   return (
     <group>

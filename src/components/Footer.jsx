@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 export default function Footer() {
   const { t } = useTranslation();
   return (
-    <footer className="border-t border-white/5 py-16 px-6">
+    <footer className="border-t border-[var(--glass-border)] py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
@@ -19,7 +19,7 @@ export default function Footer() {
                 <a
                   key={social}
                   href="#"
-                  className="w-8 h-8 rounded-lg glass flex items-center justify-center text-xs text-gray-400 hover:text-white hover:bg-purple-500/10 transition-all"
+                  className="w-8 h-8 rounded-lg glass flex items-center justify-center text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-purple-500/10 transition-all"
                 >
                   {social}
                 </a>
@@ -58,7 +58,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="border-t border-[var(--glass-border)] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-[var(--text-secondary)]">
             {t('copyright')}
           </p>

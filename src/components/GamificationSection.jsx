@@ -2,32 +2,41 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AnimatedHeading, AnimatedSubtext } from './ui/AnimatedText';
 import GlassCard from './ui/GlassCard';
-
-const badges = [
-  { icon: '🌟', name: 'First Steps', desc: 'Complete onboarding', unlocked: true },
-  { icon: '🔥', name: '7 Day Streak', desc: '7 days consistent', unlocked: true },
-  { icon: '🧘', name: 'Yoga Master', desc: '30 yoga sessions', unlocked: true },
-  { icon: '💧', name: 'Hydration Hero', desc: 'Water goals × 14', unlocked: true },
-  { icon: '📊', name: 'Data Driven', desc: 'Log 30 days', unlocked: false },
-  { icon: '🏆', name: 'Wellness Champion', desc: 'Reach Level 10', unlocked: false },
-  { icon: '💜', name: 'Community Star', desc: 'Help 50 women', unlocked: false },
-  { icon: '👑', name: 'OvaCare Queen', desc: 'Complete all goals', unlocked: false },
-];
-
-const rewards = [
-  { icon: '🎫', name: 'Free Consultation Coupon', points: 500, unlocked: true },
-  { icon: '🥗', name: 'Premium Diet Plan', points: 750, unlocked: true },
-  { icon: '💆', name: 'Spa Discount 20%', points: 1000, unlocked: false },
-  { icon: '🏅', name: 'OvaCare Plus 1 Week Free', points: 2000, unlocked: false },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function GamificationSection() {
+  const { t } = useTranslation();
   const [xp] = useState(2340);
   const [level] = useState(3);
   const [streak] = useState(12);
   const [coins] = useState(680);
   const nextLevelXP = 3000;
   const progress = (xp / nextLevelXP) * 100;
+
+  const badges = [
+    { icon: '🌟', nameKey: 'badge_first', descKey: 'badge_first_desc', unlocked: true },
+    { icon: '🔥', nameKey: 'badge_streak', descKey: 'badge_streak_desc', unlocked: true },
+    { icon: '🧘', nameKey: 'badge_yoga', descKey: 'badge_yoga_desc', unlocked: true },
+    { icon: '💧', nameKey: 'badge_hydra', descKey: 'badge_hydra_desc', unlocked: true },
+    { icon: '📊', nameKey: 'badge_data', descKey: 'badge_data_desc', unlocked: false },
+    { icon: '🏆', nameKey: 'badge_champ', descKey: 'badge_champ_desc', unlocked: false },
+    { icon: '💜', nameKey: 'badge_star', descKey: 'badge_star_desc', unlocked: false },
+    { icon: '👑', nameKey: 'badge_queen', descKey: 'badge_queen_desc', unlocked: false },
+  ];
+
+  const rewards = [
+    { icon: '🎫', nameKey: 'reward_consult', ptsKey: 'reward_consult_pts', unlocked: true },
+    { icon: '🥗', nameKey: 'reward_diet', ptsKey: 'reward_diet_pts', unlocked: true },
+    { icon: '💆', nameKey: 'reward_spa', ptsKey: 'reward_spa_pts', unlocked: false },
+    { icon: '🏅', nameKey: 'reward_plus', ptsKey: 'reward_plus_pts', unlocked: false },
+  ];
+
+  const stats = [
+    { labelKey: 'stat_level', value: level, icon: '⚡', color: 'from-purple-500 to-indigo-500' },
+    { labelKey: 'stat_xp', value: xp.toLocaleString(), icon: '✨', color: 'from-pink-500 to-rose-500' },
+    { labelKey: 'stat_streak', value: streak, icon: '🔥', color: 'from-orange-500 to-amber-500' },
+    { labelKey: 'stat_coins', value: coins, icon: '🪙', color: 'from-yellow-500 to-orange-500' },
+  ];
 
   return (
     <section id="gamification" className="section-padding relative overflow-hidden">
@@ -36,10 +45,10 @@ export default function GamificationSection() {
       <div className="max-w-6xl mx-auto relative">
         <div className="text-center mb-12">
           <AnimatedHeading className="text-4xl sm:text-5xl font-extrabold mb-4">
-            Stay Motivated
+            {t('gamify_heading')}
           </AnimatedHeading>
           <AnimatedSubtext className="text-lg max-w-xl mx-auto">
-            Earn points, unlock badges, maintain streaks, and redeem rewards. Your wellness journey, gamified.
+            {t('gamify_subheading')}
           </AnimatedSubtext>
         </div>
 
@@ -51,14 +60,9 @@ export default function GamificationSection() {
           viewport={{ once: true }}
           variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
         >
-          {[
-            { label: 'Level', value: level, icon: '⚡', color: 'from-purple-500 to-indigo-500' },
-            { label: 'XP Points', value: xp.toLocaleString(), icon: '✨', color: 'from-pink-500 to-rose-500' },
-            { label: 'Day Streak', value: streak, icon: '🔥', color: 'from-orange-500 to-amber-500' },
-            { label: 'Coins', value: coins, icon: '🪙', color: 'from-yellow-500 to-orange-500' },
-          ].map((stat) => (
+          {stats.map((stat) => (
             <motion.div
-              key={stat.label}
+              key={stat.labelKey}
               className="glass-card p-5 rounded-2xl text-center"
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             >
@@ -66,7 +70,7 @@ export default function GamificationSection() {
               <div className={`text-2xl font-extrabold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
                 {stat.value}
               </div>
-              <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
+              <div className="text-xs text-[var(--text-secondary)] mt-1">{t(stat.labelKey)}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -84,13 +88,13 @@ export default function GamificationSection() {
                 {level}
               </div>
               <div>
-                <div className="text-sm font-semibold text-white">Wellness Level {level}</div>
-                <div className="text-xs text-gray-500">{xp} / {nextLevelXP} XP to Level {level + 1}</div>
+                <div className="text-sm font-semibold text-[var(--text-primary)]">{t('wellness_level')} {level}</div>
+                <div className="text-xs text-[var(--text-secondary)]">{xp} / {nextLevelXP} {t('xp_to_next')} {level + 1}</div>
               </div>
             </div>
             <span className="text-xs text-purple-400 font-semibold">{Math.round(progress)}%</span>
           </div>
-          <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
+          <div className="w-full h-3 bg-[var(--glass-bg)] rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 rounded-full relative"
               style={{ backgroundSize: '200% 100%' }}
@@ -107,13 +111,13 @@ export default function GamificationSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Badges */}
           <GlassCard className="!p-6">
-            <h3 className="text-lg font-bold text-white mb-5 flex items-center gap-2">
-              <span>🏅</span> Wellness Badges
+            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-5 flex items-center gap-2">
+              <span>🏅</span> {t('badges_title')}
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {badges.map((badge, i) => (
                 <motion.div
-                  key={badge.name}
+                  key={badge.nameKey}
                   className={`text-center p-3 rounded-xl transition-all ${
                     badge.unlocked
                       ? 'glass hover:bg-purple-500/10'
@@ -126,10 +130,10 @@ export default function GamificationSection() {
                   whileHover={badge.unlocked ? { scale: 1.08 } : {}}
                 >
                   <div className="text-3xl mb-1.5">{badge.icon}</div>
-                  <div className="text-[10px] font-semibold text-white">{badge.name}</div>
-                  <div className="text-[9px] text-gray-500">{badge.desc}</div>
+                  <div className="text-[10px] font-semibold text-[var(--text-primary)]">{t(badge.nameKey)}</div>
+                  <div className="text-[9px] text-[var(--text-secondary)]">{t(badge.descKey)}</div>
                   {!badge.unlocked && (
-                    <div className="text-[9px] text-gray-600 mt-1">🔒 Locked</div>
+                    <div className="text-[9px] text-[var(--text-secondary)] mt-1">{t('badge_locked')}</div>
                   )}
                 </motion.div>
               ))}
@@ -138,13 +142,13 @@ export default function GamificationSection() {
 
           {/* Rewards */}
           <GlassCard className="!p-6">
-            <h3 className="text-lg font-bold text-white mb-5 flex items-center gap-2">
-              <span>🎁</span> Rewards & Coupons
+            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-5 flex items-center gap-2">
+              <span>🎁</span> {t('rewards_title')}
             </h3>
             <div className="space-y-3">
               {rewards.map((reward, i) => (
                 <motion.div
-                  key={reward.name}
+                  key={reward.nameKey}
                   className={`flex items-center gap-4 glass rounded-xl p-4 transition-all ${
                     reward.unlocked ? 'hover:bg-purple-500/5' : 'opacity-50'
                   }`}
@@ -155,18 +159,18 @@ export default function GamificationSection() {
                 >
                   <span className="text-2xl">{reward.icon}</span>
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-white">{reward.name}</div>
-                    <div className="text-xs text-gray-500">{reward.points} coins</div>
+                    <div className="text-sm font-medium text-[var(--text-primary)]">{t(reward.nameKey)}</div>
+                    <div className="text-xs text-[var(--text-secondary)]">{t(reward.ptsKey)}</div>
                   </div>
                   <button
                     className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                       reward.unlocked
                         ? 'bg-purple-500/20 border border-purple-500/30 text-purple-300 hover:bg-purple-500/30'
-                        : 'bg-white/5 border border-white/5 text-gray-500 cursor-not-allowed'
+                        : 'bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-secondary)] cursor-not-allowed'
                     }`}
                     disabled={!reward.unlocked}
                   >
-                    {reward.unlocked ? 'Redeem' : 'Locked'}
+                    {reward.unlocked ? t('redeem') : t('locked')}
                   </button>
                 </motion.div>
               ))}

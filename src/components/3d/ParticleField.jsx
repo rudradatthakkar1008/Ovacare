@@ -2,8 +2,12 @@ import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-export default function ParticleField({ count = 500 }) {
+export default function ParticleField() {
   const meshRef = useRef();
+  
+  const count = useMemo(() => {
+    return window.innerWidth < 768 ? 150 : 500;
+  }, []);
   
   const { positions, colors, sizes } = useMemo(() => {
     const positions = new Float32Array(count * 3);
